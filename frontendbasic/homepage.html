@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
+<html lang="en" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html"
+      xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 
 <head>
     <meta charset="UTF-8">
@@ -9,15 +10,17 @@
 </head>
 
 <body>
-<main>
-    <div class="start_page_container">
-        <h1>Find your party animal</h1>
-        <article>
-            <img width="300" height="300" src="./images/party-animal.jpg" alt="party animal">
-        </article>
-        <input id=start_button name="start_button" type="button" value="Start!" onclick="findPartyAnimal()">
-    </div>
-</main>
+    <main>
+        <div class="start_page_container">
+            <h1>Find your party animal</h1>
+            <article>
+                <img width="300" height="300" src="./images/party-animal.jpg" alt="party animal">
+            </article>
+            <input id=host_button name="host_button" type="button" value="Host" onclick="hostLogin()"><br>
+            <input id=user_button name="user_button" type="button" value="User" onclick="userLogin()">
+        </div>
+    </main>
+    <script src="hostlogin.js"></script>
 </body>
 
 </html>
