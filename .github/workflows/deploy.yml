@@ -1,42 +1,44 @@
-name: Deploy React App to GitHub Pages
+name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main ]  # or master
   workflow_dispatch:
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
 jobs:
-  build-and-deploy:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
-    
     steps:
-    - name: Checkout code
+    - name: Checkout
       uses: actions/checkout@v4
       
-    - name: Setup Node.js
+    - name: Setup Node
       uses: actions/setup-node@v4
       with:
         node-version: '18'
         
-    - name: Debug - List files
-      run: |
-        echo "Root directory:"
-        ls -la
-        echo "Frontend directory:"
-        ls -la frontend/
-        
     - name: Install dependencies
-      run: |
-        cd frontend
-        npm install
-        
-    - name: Build app
-      run: |
-        cd frontend
-        npm run build
+      run: npm install
+      
+    - name: Build
+      run: npm run build
+      
+    - name: Setup Pages
+      uses: actions/configure-pages@v3
+      
+    - name: Upload artifact
+      uses: actions/upload-pages-artifact@v2
+      with:
+        path: './dist'  # your build output folder
         
     - name: Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./frontend/build
+      id: deployment
+      uses: actions/deploy-pages@v2
