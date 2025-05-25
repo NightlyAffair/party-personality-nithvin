@@ -1,0 +1,217 @@
+{
+  "questions": [
+    {
+      "ID": "0",
+      "Question": "Do you know why you are here?",
+      "Answers": [
+        {"0": "To have fun!"},
+        {"1": "No idea"},
+        {"2": "Where is here?"}
+      ]
+    },
+    {
+      "ID": "1",
+      "Question": "Let's have some fun then! How do you like to have fun?",
+      "Answers": [
+        {"3": "Going to a paaarrtaaaayy"},
+        {"4": "Watching my shows"},
+        {"5": "Playing sports"}
+      ]
+    },
+    {
+      "ID": "2",
+      "Question": "That's mysterious! But since you're here, what draws you to new experiences?",
+      "Answers": [
+        {"6": "The thrill of the unknown"},
+        {"7": "Meeting new people"},
+        {"8": "Learning something new"}
+      ]
+    },
+    {
+      "ID": "3",
+      "Question": "Welcome to the quiz dimension! What's your superpower?",
+      "Answers": [
+        {"9": "Making people laugh"},
+        {"10": "Solving puzzles"},
+        {"11": "Reading minds"}
+      ]
+    },
+    {
+      "ID": "4",
+      "Question": "Party time! What's your role at the party?",
+      "Answers": [
+        {"12": "The DJ/Music curator"},
+        {"13": "The social butterfly"},
+        {"14": "The party games organizer"}
+      ]
+    },
+    {
+      "ID": "5",
+      "Question": "Cozy vibes! What's your perfect binge-watching setup?",
+      "Answers": [
+        {"15": "Blanket fort with snacks"},
+        {"16": "Fancy home theater"},
+        {"17": "Laptop in bed"}
+      ]
+    },
+    {
+      "ID": "6",
+      "Question": "Athletic spirit! What motivates you most in sports?",
+      "Answers": [
+        {"18": "The competition"},
+        {"19": "The teamwork"},
+        {"20": "The personal challenge"}
+      ]
+    },
+    {
+      "ID": "7",
+      "Question": "You're an adventure seeker! If you could explore anywhere, where would it be?",
+      "Answers": [
+        {"21": "Deep ocean trenches"},
+        {"22": "Outer space"},
+        {"23": "Ancient ruins"}
+      ]
+    },
+    {
+      "ID": "8",
+      "Question": "Social butterfly detected! What's your ideal way to connect with people?",
+      "Answers": [
+        {"24": "Deep meaningful conversations"},
+        {"25": "Fun group activities"},
+        {"26": "Helping others with problems"}
+      ]
+    },
+    {
+      "ID": "9",
+      "Question": "Knowledge seeker! What type of learning excites you most?",
+      "Answers": [
+        {"27": "Hands-on experiments"},
+        {"28": "Reading fascinating books"},
+        {"29": "Listening to expert stories"}
+      ]
+    },
+    {
+      "ID": "10",
+      "Question": "You're clearly creative! If you could master any art form instantly, what would it be?",
+      "Answers": [
+        {"30": "Stand-up comedy"},
+        {"31": "Music composition"},
+        {"32": "Digital art"}
+      ]
+    },
+    {
+      "ID": "11",
+      "Question": "Problem solver extraordinaire! What's your approach to tricky situations?",
+      "Answers": [
+        {"33": "Break it down step by step"},
+        {"34": "Think outside the box"},
+        {"35": "Ask for different perspectives"}
+      ]
+    },
+    {
+      "ID": "12",
+      "Question": "Mind reader, eh? What do you think people need most right now?",
+      "Answers": [
+        {"36": "More laughter and joy"},
+        {"37": "Better understanding of each other"},
+        {"38": "Time to relax and recharge"}
+      ]
+    },
+    {
+      "ID": "13",
+      "Question": "You're quite the entertainer! What's your secret to keeping energy high?",
+      "Answers": [
+        {"39": "Coffee and positive vibes"},
+        {"40": "Feeding off others' excitement"},
+        {"41": "Having a backup plan for everything"}
+      ]
+    },
+    {
+      "ID": "14",
+      "Question": "Final question! If you could give one piece of advice to the world, what would it be?",
+      "Answers": [
+        {"42": "Don't take life too seriously"},
+        {"43": "Be kind to everyone you meet"},
+        {"44": "Never stop being curious"}
+      ]
+    }
+  ],
+  "controlFlow": {
+    "0": "1",
+    "1": "2",
+    "2": "3",
+    "3": "4",
+    "4": "5",
+    "5": "6",
+    "6": "7",
+    "7": "8",
+    "8": "9",
+    "9": "10",
+    "10": "11",
+    "11": "12",
+    "12": "13",
+    "13": "14",
+    "14": "end",
+    "15": "5",
+    "16": "5",
+    "17": "5",
+    "18": "7",
+    "19": "8",
+    "20": "9",
+    "21": "10",
+    "22": "10",
+    "23": "9",
+    "24": "12",
+    "25": "4",
+    "26": "12",
+    "27": "11",
+    "28": "11",
+    "29": "8",
+    "30": "13",
+    "31": "13",
+    "32": "13",
+    "33": "11",
+    "34": "10",
+    "35": "8",
+    "36": "13",
+    "37": "12",
+    "38": "14",
+    "39": "13",
+    "40": "13",
+    "41": "11",
+    "42": "end",
+    "43": "end",
+    "44": "end"
+  },
+  "results": {
+    "personality_types": {
+      "creative_entertainer": {
+        "title": "🎭 The Creative Entertainer",
+        "description": "You're the life of the party with a creative soul! You love making people laugh and bringing joy wherever you go."
+      },
+      "thoughtful_connector": {
+        "title": "🤝 The Thoughtful Connector",
+        "description": "You're all about meaningful relationships and deep understanding. People feel heard when they're with you."
+      },
+      "adventurous_learner": {
+        "title": "🚀 The Adventurous Learner",
+        "description": "You're driven by curiosity and the thrill of discovery. Every day is a chance to learn something amazing!"
+      },
+      "strategic_problem_solver": {
+        "title": "🧩 The Strategic Problem Solver",
+        "description": "You approach life like a fascinating puzzle to solve. Your methodical thinking helps others see solutions clearly."
+      },
+      "balanced_explorer": {
+        "title": "⚖️ The Balanced Explorer",
+        "description": "You beautifully blend different aspects of life - creativity, logic, social connection, and personal growth."
+      }
+    }
+  },
+  "quiz_metadata": {
+    "title": "What's Your Fun Personality?",
+    "description": "A branching quiz that adapts to your choices and reveals your unique approach to having fun!",
+    "total_questions": 15,
+    "estimated_time": "3-5 minutes",
+    "quiz_type": "personality_branching"
+  }
+}
