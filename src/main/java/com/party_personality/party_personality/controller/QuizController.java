@@ -1,30 +1,40 @@
 package com.party_personality.party_personality.controller;
 
-import com.party_personality.party_personality.model.PartyPersonality;
-import com.party_personality.party_personality.model.QuizResult;
+
+import com.party_personality.party_personality.exception.UserNotFoundException;
+import com.party_personality.party_personality.model.Quiz;
 import com.party_personality.party_personality.service.QuizService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Map;
+import java.util.List;
 
 @RestController
-@RequestMapping("/api/quiz")
 @RequiredArgsConstructor
 public class QuizController {
 
     private final QuizService quizService;
 
-    @PostMapping("/submit")
-    public ResponseEntity<QuizResult> submitQuiz(@RequestBody Map<String, String> answers) {
-        QuizResult result = quizService.processQuizAnswers(answers);
-        return ResponseEntity.ok(result);
+    //Read all quizzes created by userid
+    @GetMapping("/quiz/{userid}")
+    public List<Quiz> getQuiz(@PathVariable Long userid) {
+        return quizService.getQuiz(userid);
     }
 
-    @GetMapping("/personality/{type}")
-    public ResponseEntity<PartyPersonality> getPersonalityDetails(@PathVariable String type) {
-        PartyPersonality personality = quizService.getPersonalityDetails(type);
-        return ResponseEntity.ok(personality);
+    //Delete a quiz for a user
+    @DeleteMapping("/quiz/{userid}/{quizid}")
+    public void deleteQuiz(@PathVariable Long userid, @PathVariable Long quizid) {
+        quizService.deleteQuiz(userid, quizid);
     }
+
+    //Update a user's quiz
+    @PutMapping("/quiz/{userid}")
+    public void updateQuiz(@PathVariable Long userid, @RequestBody Quiz quiz) {
+        try {
+            quizService.updateQuiz(userid, quiz);
+        } catch (UserNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
 }
