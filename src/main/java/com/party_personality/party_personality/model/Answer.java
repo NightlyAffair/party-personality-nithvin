@@ -29,4 +29,10 @@ public class Answer {
 
     @Column(name = "answer")
     private String answer;
+
+    @Column(name="weight")
+    private int weight;
+
+    @Column(name = "assosciation")
+    private int association;
 }

@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import Data from "../data/Data";
 import QuestionLoader from "../components/QuestionLoader";
 
@@ -7,54 +7,78 @@ function QuizPage() {
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
     const [controlFlow, setControlFlow] = useState(null);
-    
-    useEffect(() => {
-        Data().then((data) => {
-            if (data && data.questions) {
-                const jsx = QuestionLoader(data);
-                setQuestions(jsx);
-                setControlFlow(data.controlFlow);
-            } else {
-                setError("Failed to load questions");
-            }
-            setIsLoading(false);
-        }).catch((err) => {
-            setError("Failed to load quiz data");
-            setIsLoading(false);
-        });
-    }, []);
-
+    const [personalities, setPersonalities] = useState(null);
     const [currentQn, setCurrentQn] = useState(0);
     const [ansArr, updateAnsArr] = useState([]);
+
+    useEffect(() => {
+        const loadData = async () => {
+            try {
+                const data = await Data();
+                if (data && data.questions) {
+                    const jsx = QuestionLoader(data);
+                    setQuestions(jsx);
+                    setControlFlow(data.controlFlow);
+                    setPersonalities(data.personalities);
+                } else {
+                    setError("Failed to load questions");
+                }
+            } catch (err) {
+                console.error("Error loading quiz data:", err);
+                setError(`Failed to load quiz data: ${err.message}`);
+            } finally {
+                setIsLoading(false);
+            }
+        };
+
+        loadData();
+    }, []);
+
     const CurrentComponent = QuestionArray[currentQn];
 
     function ChangeQn(num) {
         setCurrentQn(num);
     }
 
+    function calculatePersonality() {
+        personalities.forEach((personality) => {
+            personality.total = 0;
+        })
+
+
+
+        return personalities[1]; // Default to first personality for now
+    }
+
     function onSubmit(answer) {
-        updateAnsArr(prev => [...prev, answer]);
-        
+        const newAnswers = [...ansArr, answer];
+        updateAnsArr(newAnswers);
+
         // Safety check for controlFlow
         if (!controlFlow) {
             console.log("Control flow not available, moving to next question");
             if (currentQn < QuestionArray.length - 1) {
                 return ChangeQn(currentQn + 1);
             } else {
-                console.log("Quiz completed! Answers:", [...ansArr, answer]);
+                const result = calculatePersonality();
+                console.log("Quiz completed! Answers:", newAnswers);
+                console.log("Your personality:", result);
+                alert(`Quiz completed! You are: ${result?.title || 'Unknown'}`);
                 return;
             }
         }
 
         const nextQuestionId = controlFlow[answer];
-        
+
         // Move to next question or complete quiz
         if (nextQuestionId && nextQuestionId !== "end" && nextQuestionId < QuestionArray.length) {
             return ChangeQn(parseInt(nextQuestionId));
         } else {
             // Quiz is complete
-            console.log("Quiz completed! Answers:", [...ansArr, answer]);
-            alert("Quiz completed! Check console for results."); // Temporary for deployment
+            const result = calculatePersonality();
+            console.log("Quiz completed! Answers:", newAnswers);
+            console.log("Your personality:", result);
+            alert(`Quiz completed! You are: ${result?.title || 'Unknown'}`);
         }
     }
 

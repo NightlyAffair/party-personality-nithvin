@@ -1,13 +1,12 @@
 package com.party_personality.party_personality.model;
 
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
 
-@Data
 @Entity
 @Table(name = "\"user\"")
 public class User {
@@ -32,6 +31,7 @@ public class User {
 
     @Setter
     @Getter
+    @Nullable
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     List<Quiz> quizzes;
 }

@@ -9,6 +9,8 @@ import lombok.Setter;
 
 import java.util.List;
 
+@Setter
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -17,19 +19,18 @@ public class Quiz {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Setter
     @ManyToOne
     @JoinColumn(name = "user_id")
     User user;
 
-    @Getter
     @OneToMany(mappedBy = "quiz", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     List<Question> questions;
 
-    @Getter
     @OneToMany(mappedBy = "quiz", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     List<Flow> controlFlow;
 
+    @OneToMany(mappedBy = "quiz", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    List<Personality> personalities;
 
     public void setQuestions(List<Question> questions) {
         this.questions = questions;
@@ -39,6 +40,11 @@ public class Quiz {
     public void setControlFlow(List<Flow> controlFlow) {
         this.controlFlow = controlFlow;
         controlFlow.forEach(flow -> flow.setQuiz(this));
+    }
+
+    public void setPersonalities(List<Personality> personalities) {
+        this.personalities = personalities;
+        personalities.forEach(personal -> personal.setQuiz(this));
     }
 
 }

@@ -1,6 +1,8 @@
 package com.party_personality.party_personality.controller;
 
 
+import com.party_personality.party_personality.dto.QuizDTO;
+import com.party_personality.party_personality.dto.QuizMapper;
 import com.party_personality.party_personality.exception.UserNotFoundException;
 import com.party_personality.party_personality.model.Quiz;
 import com.party_personality.party_personality.service.QuizService;
@@ -16,11 +18,14 @@ import java.util.List;
 public class QuizController {
 
     private final QuizService quizService;
+    private final QuizMapper quizMapper;
 
     //Read all quizzes created by userid
     @GetMapping("/quiz/{userid}")
-    public ResponseEntity<List<Quiz>> getQuiz(@PathVariable Long userid) {
-        return new ResponseEntity<>(quizService.getQuiz(userid), HttpStatus.OK);
+    public ResponseEntity<List<QuizDTO>> getQuiz(@PathVariable Long userid) {
+        List<Quiz> quizzes = quizService.getQuiz(userid);
+        List<QuizDTO> quizDTOs = quizMapper.toDTO(quizzes);
+        return new ResponseEntity<>(quizDTOs, HttpStatus.OK);
     }
 
     //Delete a quiz for a user
