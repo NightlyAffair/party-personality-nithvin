@@ -3,7 +3,7 @@ function ParseJson(data) {
     const quizData = Array.isArray(data) ? data[0] : data;
 
     // Validate the JSON structure
-    if (!quizData.questions || !quizData.controlFlow || !quizData.personalities) {
+    if (!quizData.questions || !quizData.controlFlow || !quizData.personalities || !quizData.answers) {
         throw new Error('Invalid quiz format: missing required fields');
     }
 
@@ -34,12 +34,22 @@ function Transform(quizData) {
         acc[p.personalityId] = {
             name: p.name,
             title: p.title,
-            description: p.description
+            description: p.description,
+            score: 0
         };
         return acc;
     }, {});
 
-    return { questions, controlFlow, personalities };
+    //Transform answers
+    const answers = quizData.answers.reduce((acc, p) => {
+        acc[p.answerId] = {
+        weight: p.weight,
+        association: p.association,
+        score: 0
+        };
+    return acc;
+    }, {});
+    return { questions, controlFlow, personalities, answers };
 }
 
 export default ParseJson;

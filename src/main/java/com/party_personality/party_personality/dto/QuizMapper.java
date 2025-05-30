@@ -16,6 +16,17 @@ public class QuizMapper {
             dto.setQuestions(quiz.getQuestions().stream()
                     .map(this::toDTO)
                     .collect(Collectors.toList()));
+
+            dto.setAnswers(quiz.getQuestions().stream()
+                    .map(Question::getAnswers)
+                    .reduce(List.of(new Answer()), (x,y) -> {
+                        List<Answer> z = new java.util.ArrayList<>(List.copyOf(x));
+                        z.addAll(y);
+                        return z;
+                    })
+                    .stream()
+                    .map(this::toDTO)
+                    .collect(Collectors.toList()));
         }
 
         if (quiz.getControlFlow() != null) {

@@ -9,6 +9,7 @@ function QuizPage() {
     const [controlFlow, setControlFlow] = useState(null);
     const [personalities, setPersonalities] = useState(null);
     const [currentQn, setCurrentQn] = useState(0);
+    const [ansData, setAnsData] = useState(null);
     const [ansArr, updateAnsArr] = useState([]);
 
     useEffect(() => {
@@ -20,6 +21,7 @@ function QuizPage() {
                     setQuestions(jsx);
                     setControlFlow(data.controlFlow);
                     setPersonalities(data.personalities);
+                    setAnsData(data.answers)
                 } else {
                     setError("Failed to load questions");
                 }
@@ -41,13 +43,15 @@ function QuizPage() {
     }
 
     function calculatePersonality() {
-        personalities.forEach((personality) => {
-            personality.total = 0;
-        })
+        //the answers that were selected
+        ansArr.map((index) => ansData[index]);
+
+        ansArr.forEach((index) => personalities[index].score += index.weight);
+
+        personalities.sort((a, b) => a.score - b.score);
 
 
-
-        return personalities[1]; // Default to first personality for now
+        return personalities[0];
     }
 
     function onSubmit(answer) {

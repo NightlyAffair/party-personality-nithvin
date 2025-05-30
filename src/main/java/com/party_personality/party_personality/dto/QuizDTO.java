@@ -11,4 +11,5 @@ public class QuizDTO {
     private List<QuestionDTO> questions;
     private List<FlowDTO> controlFlow;
     private List<PersonalityDTO> personalities;
+    private List<AnswerDTO> answers;
 }
