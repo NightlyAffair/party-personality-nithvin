@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import Data from "../data/Data";
 import QuestionLoader from "../components/QuestionLoader";
+import { useNavigate } from "react-router-dom";
 
 function QuizPage() {
+    const navigate = useNavigate();
     const [QuestionArray, setQuestions] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -44,14 +46,15 @@ function QuizPage() {
 
     function calculatePersonality() {
         //the answers that were selected
-        ansArr.map((index) => ansData[index]);
+        const answerObjects = ansArr.map((index) => ansData[index]);
 
-        ansArr.forEach((index) => personalities[index].score += index.weight);
+        answerObjects.forEach((index) => personalities[index.association].score += index.weight);
 
-        personalities.sort((a, b) => a.score - b.score);
+        const personalityArray = Object.values(personalities);
+        personalityArray.sort((a, b) => b.score - a.score);
 
 
-        return personalities[0];
+        return personalityArray[0];
     }
 
     function onSubmit(answer) {
@@ -65,10 +68,12 @@ function QuizPage() {
                 return ChangeQn(currentQn + 1);
             } else {
                 const result = calculatePersonality();
-                console.log("Quiz completed! Answers:", newAnswers);
-                console.log("Your personality:", result);
-                alert(`Quiz completed! You are: ${result?.title || 'Unknown'}`);
-                return;
+                return navigate("./results", {
+                        state: {
+                            personality: result
+                        }
+                    }
+                );
             }
         }
 
@@ -78,11 +83,15 @@ function QuizPage() {
         if (nextQuestionId && nextQuestionId !== "end" && nextQuestionId < QuestionArray.length) {
             return ChangeQn(parseInt(nextQuestionId));
         } else {
-            // Quiz is complete
             const result = calculatePersonality();
-            console.log("Quiz completed! Answers:", newAnswers);
-            console.log("Your personality:", result);
-            alert(`Quiz completed! You are: ${result?.title || 'Unknown'}`);
+            // Quiz is complete
+            console.log("Navigating with result:", result); // Debug log
+            return navigate("./results", {
+                    state: {
+                        personality: result
+                    }
+                }
+            )
         }
     }
 
