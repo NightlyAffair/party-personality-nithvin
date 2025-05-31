@@ -1,0 +1,5 @@
+[build]
+builder = "NIXPACKS"
+
+[deploy]
+startCommand = "java -Xmx256m -Xms128m -XX:+UseSerialGC -XX:MaxMetaspaceSize=128m -jar build/libs/*[!-plain].jar"
