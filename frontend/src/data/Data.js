@@ -17,6 +17,7 @@ async function Data() {
 // This script fetches data from api
 async function APIFetch() {
     try {
+        //URL
         const response = await fetch('http://party-personality-nithvin-production.up.railway.app/quiz/1');
 
         if (!response.ok) {
