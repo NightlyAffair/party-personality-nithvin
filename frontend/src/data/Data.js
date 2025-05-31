@@ -17,7 +17,7 @@ async function Data() {
 // This script fetches data from api
 async function APIFetch() {
     try {
-        const response = await fetch('http://localhost:8080/quiz/1');
+        const response = await fetch('http://party-personality-nithvin-production.up.railway.app/quiz/1');
 
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
