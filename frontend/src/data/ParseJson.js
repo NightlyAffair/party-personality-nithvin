@@ -1,18 +1,55 @@
 function ParseJson(data) {
+    // Handle array response from API
+    const quizData = Array.isArray(data) ? data[0] : data;
+
     // Validate the JSON structure
-    if (!data.questions || !data.controlFlow) {
-        throw new Error('Invalid quiz format');
+    if (!quizData.questions || !quizData.controlFlow || !quizData.personalities || !quizData.answers) {
+        throw new Error('Invalid quiz format: missing required fields');
     }
 
-    // Process or transform the data as needed
-    console.log(`Loaded ${data.questions.length} questions`);
+    console.log(`Loaded ${quizData.questions.length} questions`);
 
-    // Maybe set up the quiz state
-    const questions = data.questions;
-    const controlFlow = data.controlFlow;
-    const personality = data.results;
+    return Transform(quizData);
+}
 
-    return {questions, controlFlow, personality};
+function Transform(quizData) {
+    // Transform questions to match expected format
+    const questions = quizData.questions.map(q => ({
+        id: q.id,
+        questionId: q.questionId,
+        Question: q.question, // Map lowercase to uppercase
+        Answers: q.answers.map(a => ({
+            [a.answerId]: a.answer // Create key-value pairs as expected by QuestionLoader
+        }))
+    }));
+
+    // Transform control flow from array to object mapping
+    const controlFlow = {};
+    quizData.controlFlow.forEach(cf => {
+        controlFlow[cf.key] = cf.value === -1 ? "end" : cf.value;
+    });
+
+    // Transform personalities
+    const personalities = quizData.personalities.reduce((acc, p) => {
+        acc[p.personalityId] = {
+            name: p.name,
+            title: p.title,
+            description: p.description,
+            score: 0
+        };
+        return acc;
+    }, {});
+
+    //Transform answers
+    const answers = quizData.answers.reduce((acc, p) => {
+        acc[p.answerId] = {
+        weight: p.weight,
+        association: p.association,
+        score: 0
+        };
+    return acc;
+    }, {});
+    return { questions, controlFlow, personalities, answers };
 }
 
 export default ParseJson;

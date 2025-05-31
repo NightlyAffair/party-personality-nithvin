@@ -1,5 +1,4 @@
 // src/data/Data.js
-import questionsData from './DefaultQuestions.json'; // This should work for JSON
 import ParseJson from './ParseJson';
 
 async function Data() {
@@ -9,29 +8,26 @@ async function Data() {
         if (apiData) {
             return ParseJson(apiData);
         }
-
-        // Fall back to default data
-        return await DefaultFetch();
     } catch (error) {
-        console.error('Error in Data():', error);
-        return null;
+        console.error('Error fetching data:', error);
+        throw error; // Re-throw to handle in component
     }
 }
 
 // This script fetches data from api
 async function APIFetch() {
-    // Return null for now, implement API call later
-    return null;
-}
-
-// This script fetches data from default questions
-async function DefaultFetch() {
     try {
-        // questionsData is already parsed when imported as JSON
-        return ParseJson(questionsData);
+        const response = await fetch('http://localhost:8080/quiz/1');
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const json = await response.json();
+        return json;
     } catch (error) {
-        console.error('Error loading default questions:', error);
-        return null;
+        console.error('API fetch error:', error);
+        throw error;
     }
 }
 
