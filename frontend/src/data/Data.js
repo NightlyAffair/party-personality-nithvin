@@ -13,12 +13,12 @@ async function Data() {
         throw error; // Re-throw to handle in component
     }
 }
-
+    
 // This script fetches data from api
 async function APIFetch() {
     try {
         //URL
-        const response = await fetch('http://party-personality-nithvin-production.up.railway.app/quiz/1');
+        const response = await fetch('https://party-personality-nithvin-production.up.railway.app/quiz/1');
 
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
