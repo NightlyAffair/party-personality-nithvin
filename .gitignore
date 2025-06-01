@@ -60,3 +60,6 @@ out/
 
 ### VS Code ###
 .vscode/
+
+### Specific Path ###
+**/frontend/src/data/data.json
