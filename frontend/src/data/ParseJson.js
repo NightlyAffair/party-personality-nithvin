@@ -2,6 +2,8 @@ function ParseJson(data) {
     // Handle array response from API
     const quizData = Array.isArray(data) ? data[0] : data;
 
+    console.log(quizData);
+
     // Validate the JSON structure
     if (!quizData.questions || !quizData.controlFlow || !quizData.personalities || !quizData.answers) {
         throw new Error('Invalid quiz format: missing required fields');
@@ -45,7 +47,6 @@ function Transform(quizData) {
         acc[p.answerId] = {
         weight: p.weight,
         association: p.association,
-        score: 0
         };
     return acc;
     }, {});

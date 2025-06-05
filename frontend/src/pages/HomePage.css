@@ -1,0 +1,24 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.HomePageContainer {
+    background: pink;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+    row-gap: 20px;
+    font-family: monospace;
+}
+
+button {
+    font-family: monospace;
+    background-color: transparent;
+    border: 2px black solid;
+    padding : 5px;
+    border-radius: 7px
+}

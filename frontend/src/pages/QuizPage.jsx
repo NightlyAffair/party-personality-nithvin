@@ -2,10 +2,12 @@ import { useEffect, useState } from "react";
 import Data from "../data/Data";
 import QuestionLoader from "../components/QuestionLoader";
 import { useNavigate } from "react-router-dom";
+import DisplayBox from "../components/DisplayBox";
+import './QuizPage.css';
 
 function QuizPage() {
     const navigate = useNavigate();
-    const [QuestionArray, setQuestions] = useState([]);
+    const [questionArray, setQuestionArray] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
     const [controlFlow, setControlFlow] = useState(null);
@@ -14,13 +16,14 @@ function QuizPage() {
     const [ansData, setAnsData] = useState(null);
     const [ansArr, updateAnsArr] = useState([]);
 
+    //Data loader
     useEffect(() => {
         const loadData = async () => {
             try {
                 const data = await Data();
                 if (data && data.questions) {
                     const jsx = QuestionLoader(data);
-                    setQuestions(jsx);
+                    setQuestionArray(jsx);
                     setControlFlow(data.controlFlow);
                     setPersonalities(data.personalities);
                     setAnsData(data.answers)
@@ -38,7 +41,8 @@ function QuizPage() {
         loadData();
     }, []);
 
-    const CurrentComponent = QuestionArray[currentQn];
+    //Sets the current question to be displayed
+    const CurrentComponent = DisplayBox(questionArray[currentQn]);
 
     function ChangeQn(num) {
         setCurrentQn(num);
@@ -64,7 +68,7 @@ function QuizPage() {
         // Safety check for controlFlow
         if (!controlFlow) {
             console.log("Control flow not available, moving to next question");
-            if (currentQn < QuestionArray.length - 1) {
+            if (currentQn < questionArray.length - 1) {
                 return ChangeQn(currentQn + 1);
             } else {
                 const result = calculatePersonality();
@@ -80,7 +84,7 @@ function QuizPage() {
         const nextQuestionId = controlFlow[answer];
 
         // Move to next question or complete quiz
-        if (nextQuestionId && nextQuestionId !== "end" && nextQuestionId < QuestionArray.length) {
+        if (nextQuestionId && nextQuestionId !== "end" && nextQuestionId < questionArray.length) {
             return ChangeQn(parseInt(nextQuestionId));
         } else {
             const result = calculatePersonality();
@@ -104,7 +108,7 @@ function QuizPage() {
         return <div>Error: {error}</div>;
     }
 
-    if (QuestionArray.length === 0) {
+    if (questionArray.length === 0) {
         return <div>No questions available</div>;
     }
 
@@ -117,7 +121,7 @@ function QuizPage() {
             <div className="Quiz">
                 <CurrentComponent onSubmit={onSubmit} />
                 <div className="quiz-progress">
-                    Question {currentQn + 1} of {QuestionArray.length}
+                    Question {currentQn + 1} of {questionArray.length}
                 </div>
             </div>
         </div>

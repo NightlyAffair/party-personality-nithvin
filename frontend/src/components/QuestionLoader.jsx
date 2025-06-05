@@ -29,6 +29,7 @@ function CreateQuestion(questionText, answers) { // Fixed parameter destructurin
         }
 
         // JSX return moved outside HandleSubmit function
+        //Describes the component Question  
         return (
             <div className="Question">
                 <div className="QuestionSection">
