@@ -19,8 +19,8 @@ function Transform(quizData) {
     const questions = quizData.questions.map(q => ({
         id: q.id,
         questionId: q.questionId,
-        Question: q.question, // Map lowercase to uppercase
-        Answers: q.answers.map(a => ({
+        question: q.question, // Map lowercase to uppercase
+        answers: q.answers.map(a => ({
             [a.answerId]: a.answer // Create key-value pairs as expected by QuestionLoader
         }))
     }));

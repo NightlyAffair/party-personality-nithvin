@@ -22,7 +22,7 @@ function QuizPage() {
             try {
                 const data = await Data();
                 if (data && data.questions) {
-                    const jsx = QuestionLoader(data);
+                    const jsx = QuestionLoader(data, {onSubmit});
                     setQuestionArray(jsx);
                     setControlFlow(data.controlFlow);
                     setPersonalities(data.personalities);
@@ -119,7 +119,7 @@ function QuizPage() {
     return (
         <div className="QuizContainer">
             <div className="Quiz">
-                <CurrentComponent onSubmit={onSubmit} />
+                <CurrentComponent />
                 <div className="quiz-progress">
                     Question {currentQn + 1} of {questionArray.length}
                 </div>
