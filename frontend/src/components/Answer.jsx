@@ -1,4 +1,3 @@
-import {useState} from "react";
 import'./Answer.css'
 
 function Answer({answers, onSubmit}) {
