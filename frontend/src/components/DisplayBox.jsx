@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import Answer from "./Answer";
 import Question from "./Question";
 import './DisplayBox.css'
@@ -9,7 +9,7 @@ function DisplayBox({ question, onSubmit }) {
     //Question contains id, questionId, question(string) and answers(list of objects)
 
     //History management
-    const [history, setHistory] = useState(null)
+    //const [history, setHistory] = useState(null)
 
     //Saves both the question and the answer picked
 
