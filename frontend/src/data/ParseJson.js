@@ -33,7 +33,7 @@ function Transform(quizData) {
 
     // Transform personalities
     const personalities = quizData.personalities.reduce((acc, p) => {
-        acc[p.personality_id] = {
+        acc[p.personalityId] = {
             name: p.name,
             title: p.title,
             description: p.description,
