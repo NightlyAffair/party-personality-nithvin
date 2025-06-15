@@ -1,26 +1,36 @@
 import { useEffect, useState } from "react";
 import Data from "../data/Data";
-import QuestionLoader from "../components/QuestionLoader";
 import { useNavigate } from "react-router-dom";
+import DisplayBox from "../components/DisplayBox";
+import './QuizPage.css';
 
+//QuizPage will handle the logic for the DisplayBox
 function QuizPage() {
     const navigate = useNavigate();
-    const [QuestionArray, setQuestions] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
-    const [error, setError] = useState(null);
+
+    //Arrays for holding the data
+    const [questionArray, setQuestionArray] = useState([]);
     const [controlFlow, setControlFlow] = useState(null);
     const [personalities, setPersonalities] = useState(null);
-    const [currentQn, setCurrentQn] = useState(0);
     const [ansData, setAnsData] = useState(null);
+
+    //States for handling changing of question and answers
+    const [currentQn, setCurrentQn] = useState(0);
     const [ansArr, updateAnsArr] = useState([]);
 
+    //Error handling
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+
+    //Data loader
     useEffect(() => {
         const loadData = async () => {
             try {
                 const data = await Data();
-                if (data && data.questions) {
-                    const jsx = QuestionLoader(data);
-                    setQuestions(jsx);
+                console.log(data);
+                if (data) {
+                    setQuestionArray(data.questions);
                     setControlFlow(data.controlFlow);
                     setPersonalities(data.personalities);
                     setAnsData(data.answers)
@@ -36,19 +46,27 @@ function QuizPage() {
         };
 
         loadData();
-    }, []);
+    }, []); //Loads once on init
 
-    const CurrentComponent = QuestionArray[currentQn];
+    //Sets the current question to be displayed
+    const CurrentComponent = <DisplayBox question = {questionArray[currentQn]} onSubmit = {onSubmit} />;
 
     function ChangeQn(num) {
         setCurrentQn(num);
     }
 
     function calculatePersonality() {
+        console.log(ansArr);
+        console.log(ansData)
+
         //the answers that were selected
         const answerObjects = ansArr.map((index) => ansData[index]);
 
-        answerObjects.forEach((index) => personalities[index.association].score += index.weight);
+
+
+        answerObjects.forEach((index) => {
+            personalities[index.association].score += index.weight
+        });
 
         const personalityArray = Object.values(personalities);
         personalityArray.sort((a, b) => b.score - a.score);
@@ -58,13 +76,13 @@ function QuizPage() {
     }
 
     function onSubmit(answer) {
-        const newAnswers = [...ansArr, answer];
-        updateAnsArr(newAnswers);
+        updateAnsArr((prev) => [...prev, answer]);
+        console.log(answer);
 
         // Safety check for controlFlow
         if (!controlFlow) {
             console.log("Control flow not available, moving to next question");
-            if (currentQn < QuestionArray.length - 1) {
+            if (currentQn < questionArray.length - 1) {
                 return ChangeQn(currentQn + 1);
             } else {
                 const result = calculatePersonality();
@@ -80,7 +98,7 @@ function QuizPage() {
         const nextQuestionId = controlFlow[answer];
 
         // Move to next question or complete quiz
-        if (nextQuestionId && nextQuestionId !== "end" && nextQuestionId < QuestionArray.length) {
+        if (nextQuestionId && nextQuestionId !== "end" && nextQuestionId < questionArray.length) {
             return ChangeQn(parseInt(nextQuestionId));
         } else {
             const result = calculatePersonality();
@@ -104,7 +122,7 @@ function QuizPage() {
         return <div>Error: {error}</div>;
     }
 
-    if (QuestionArray.length === 0) {
+    if (questionArray.length === 0) {
         return <div>No questions available</div>;
     }
 
@@ -115,10 +133,7 @@ function QuizPage() {
     return (
         <div className="QuizContainer">
             <div className="Quiz">
-                <CurrentComponent onSubmit={onSubmit} />
-                <div className="quiz-progress">
-                    Question {currentQn + 1} of {QuestionArray.length}
-                </div>
+                {CurrentComponent}
             </div>
         </div>
     );

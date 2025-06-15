@@ -5,8 +5,11 @@ async function Data() {
     try {
         // Try API first
         const apiData = await APIFetch();
-        if (apiData) {
+        if (apiData && !apiData.error) {
             return ParseJson(apiData);
+        } else {
+            //Try local fetch
+            return ParseJson(await LocalFetch());
         }
     } catch (error) {
         console.error('Error fetching data:', error);
@@ -28,7 +31,21 @@ async function APIFetch() {
         return json;
     } catch (error) {
         console.error('API fetch error:', error);
-        throw error;
+        return null;
+    }
+}
+
+//Mostly only for local development
+async function LocalFetch() {
+    try {
+        const localData = await fetch(`${process.env.PUBLIC_URL}/data.json`);
+        if (!localData.ok) {
+            throw new Error(`Local Fetch failed`);
+        }
+        return await localData.json();
+    } catch (error) {
+        console.error("No local data found", error);
+        return null;
     }
 }
 

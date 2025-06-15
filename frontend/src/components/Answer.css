@@ -1,0 +1,15 @@
+.AnswerBox {
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px;
+}
+
+.Answer {
+    width: 100%;
+    margin: 5px;
+    border: 1px solid lightgray;
+    background-color: lightgray;
+    padding: 8px;
+    border-radius: 25px
+}
+

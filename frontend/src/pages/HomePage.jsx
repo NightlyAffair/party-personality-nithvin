@@ -1,8 +1,9 @@
-import {Link} from 'react-router-dom'
+import {Link} from 'react-router-dom';
+import './HomePage.css';
 
 function HomePage() {
     return (
-        <>
+        <div className="HomePageContainer">
             <h1>
                 Welcome to Party Personality!
             </h1>
@@ -16,7 +17,7 @@ function HomePage() {
                     Enter
                 </button>
             </Link>
-        </>
+        </div>
     )
 }
 
