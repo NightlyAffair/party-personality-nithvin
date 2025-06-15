@@ -19,9 +19,9 @@ function Transform(quizData) {
     const questions = quizData.questions.map(q => ({
         id: q.id,
         questionId: q.questionId,
-        question: q.question, // Map lowercase to uppercase
+        question: q.question,
         answers: q.answers.map(a => ({
-            [a.answerId]: a.answer // Create key-value pairs as expected by QuestionLoader
+            [a.answerId]: a.answer
         }))
     }));
 
@@ -33,7 +33,7 @@ function Transform(quizData) {
 
     // Transform personalities
     const personalities = quizData.personalities.reduce((acc, p) => {
-        acc[p.personalityId] = {
+        acc[p.personality_id] = {
             name: p.name,
             title: p.title,
             description: p.description,

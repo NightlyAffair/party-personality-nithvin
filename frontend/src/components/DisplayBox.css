@@ -1,0 +1,22 @@
+.DisplayBox {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    border-width: 2px;
+    border-style: solid;
+    height: 90vh;
+    width: 80vw;
+    background-color: peachpuff;
+}
+
+.CurrentQuestion {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+}
+
+.Answers {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+}

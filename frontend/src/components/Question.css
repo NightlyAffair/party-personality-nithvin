@@ -1,0 +1,10 @@
+.Question {
+    margin: 5px;
+    width: 50vw;
+    min-height: 5vh;
+    background-color: pink;
+    padding-left: min(15px);
+    padding-top: min(5px);
+    padding-bottom: min(5px);
+    border-radius: 25px;
+}
