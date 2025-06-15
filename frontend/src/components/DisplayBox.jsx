@@ -1,4 +1,3 @@
-import {useState} from "react";
 import Answer from "./Answer";
 import Question from "./Question";
 import './DisplayBox.css'
