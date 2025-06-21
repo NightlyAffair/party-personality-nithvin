@@ -2,15 +2,10 @@ import Answer from "./Answer";
 import Question from "./Question";
 import SelectedAnswer from "./SelectedAnswer";
 import './DisplayBox.css'
-import {useState} from "react";
 
 //Focused on correctly rendering the history, currentQn and answerOptions
 function DisplayBox({ question, onSubmit, history, setHistory }) {
-
     //Question contains id, questionId, question(string) and answers(list of objects)
-
-
-    const dummyFunction = () => {}
 
     //Saves both the question and the answer picked
     function saveSubmit(answer) {
