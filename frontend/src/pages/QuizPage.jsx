@@ -3,6 +3,7 @@ import Data from "../data/Data";
 import { useNavigate } from "react-router-dom";
 import DisplayBox from "../components/DisplayBox";
 import './QuizPage.css';
+import Header from "../components/Header";
 
 //QuizPage will handle the logic for the DisplayBox
 function QuizPage() {
@@ -17,6 +18,8 @@ function QuizPage() {
     //States for handling changing of question and answers
     const [currentQn, setCurrentQn] = useState(0);
     const [ansArr, updateAnsArr] = useState([]);
+    const [history, setHistory] = useState([])
+    const [prevQn, setPrevQn] = useState([]);
 
     //Error handling
     const [isLoading, setIsLoading] = useState(true);
@@ -49,7 +52,7 @@ function QuizPage() {
     }, []); //Loads once on init
 
     //Sets the current question to be displayed
-    const CurrentComponent = <DisplayBox question = {questionArray[currentQn]} onSubmit = {onSubmit} />;
+    const CurrentComponent = <DisplayBox question = {questionArray[currentQn]} onSubmit = {onSubmit} history={history} setHistory={setHistory} />;
 
     function ChangeQn(num) {
         setCurrentQn(num);
@@ -75,9 +78,9 @@ function QuizPage() {
         return personalityArray[0];
     }
 
-    function onSubmit(answer) {
-        updateAnsArr((prev) => [...prev, answer]);
-        console.log(answer);
+    function onSubmit(index, answer) {
+        updateAnsArr((prev) => [...prev, index]);
+        console.log(index);
 
         // Safety check for controlFlow
         if (!controlFlow) {
@@ -95,10 +98,11 @@ function QuizPage() {
             }
         }
 
-        const nextQuestionId = controlFlow[answer];
+        const nextQuestionId = controlFlow[index];
 
         // Move to next question or complete quiz
         if (nextQuestionId && nextQuestionId !== "end" && nextQuestionId < questionArray.length) {
+            setPrevQn((prev) => [...prev, currentQn]);
             return ChangeQn(parseInt(nextQuestionId));
         } else {
             const result = calculatePersonality();
@@ -110,6 +114,17 @@ function QuizPage() {
                     }
                 }
             )
+        }
+    }
+
+    //Allows for rollback of the quiz answer
+    function rollback() {
+        //Need to change the history display
+        if (history.length >= 2) {
+            setHistory(prev => prev.slice(0,-2));
+            updateAnsArr((prev) => prev.slice(0,-1));
+            const rollbackId = prevQn.pop()
+            setCurrentQn(rollbackId);
         }
     }
 
@@ -132,6 +147,9 @@ function QuizPage() {
 
     return (
         <div className="QuizContainer">
+            <div className="Header">
+                <Header quizName={"Party Personality"} rollback={rollback} />
+            </div>
             <div className="Quiz">
                 {CurrentComponent}
             </div>

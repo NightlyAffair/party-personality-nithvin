@@ -1,13 +1,16 @@
 import'./Answer.css'
 
-function Answer({answers, onSubmit}) {
+function Answer({answers, onSubmit, saveSubmit}) {
 
     //answers is an array of answerid:answer string key:value pairs
     console.log(answers);
 
     function CreateAnswer({index, answer}) {
         return (
-            <div className="Answer" onClick={() => onSubmit(index)}>
+            <div className="Answer" onClick={() => {
+                onSubmit(index, answer)
+                saveSubmit(answer)
+            }}>
                 {answer}
             </div>
         )
@@ -15,7 +18,8 @@ function Answer({answers, onSubmit}) {
 
 
     return (<div className="AnswerBox">
-                {answers.map((object, key) => <CreateAnswer index={Object.keys(object)[0]} answer={Object.values(object)[0]}/>)}
+                {answers.map((object, key) =>
+                    <CreateAnswer index={Object.keys(object)[0]} answer={Object.values(object)[0]}/>)}
             </div>);
 }
 

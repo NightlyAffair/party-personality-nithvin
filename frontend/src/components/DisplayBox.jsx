@@ -1,30 +1,38 @@
 import Answer from "./Answer";
 import Question from "./Question";
+import SelectedAnswer from "./SelectedAnswer";
 import './DisplayBox.css'
+import {useState} from "react";
 
 //Focused on correctly rendering the history, currentQn and answerOptions
-function DisplayBox({ question, onSubmit }) {
+function DisplayBox({ question, onSubmit, history, setHistory }) {
 
     //Question contains id, questionId, question(string) and answers(list of objects)
 
-    //History management
-    //const [history, setHistory] = useState(null)
+
+    const dummyFunction = () => {}
 
     //Saves both the question and the answer picked
+    function saveSubmit(answer) {
+        setHistory((prev) => [...prev, DisplayQuestion, <SelectedAnswer answer = {[answer]} />]);
+    }
+
+
 
     //Current Qn
-    const DisplayQuestion = <Question questionText = {question.question}/>
+    const DisplayQuestion = <div className='CurrentQuestion'><Question questionText = {question.question}/></div>
+    const Answers = <Answer answers = {question.answers} onSubmit={onSubmit} saveSubmit={saveSubmit} />
+    const History = <div className = "History">{history.map(x => <div>{x}</div>)}</div>
 
-    const Answers = <Answer answers = {question.answers} onSubmit={onSubmit} />
+
+
 
     return (
         <div className="DisplayBox">
-            {/*<div className="history">*/}
-            {/*    <History />*/}
-            {/*</div>*/}
-            <div className="CurrentQuestion">
-                {DisplayQuestion}
+            <div className="history">
+                {History}
             </div>
+            {DisplayQuestion}
             <div className="Answers">
                 {Answers}
             </div>
