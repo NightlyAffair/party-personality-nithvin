@@ -1,4 +1,4 @@
-import backButton from '../assets/icons/back_button.png';
+import backButton from '../../assets/icons/back_button.png';
 import './Header.css'
 
 function Header({quizName, rollback}) {

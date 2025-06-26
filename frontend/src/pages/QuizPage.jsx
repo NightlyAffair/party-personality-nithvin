@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import Data from "../data/Data";
 import { useNavigate } from "react-router-dom";
-import DisplayBox from "../components/DisplayBox";
+import DisplayBox from "../components/quiz/DisplayBox";
 import './QuizPage.css';
-import Header from "../components/Header";
+import Header from "../components/quiz/Header";
 
 //QuizPage will handle the logic for the DisplayBox
 function QuizPage() {

@@ -21,7 +21,7 @@ async function Data() {
 async function APIFetch() {
     try {
         //URL
-        const response = await fetch('https://party-personality-nithvin-production.up.railway.app/quiz/1');
+        const response = await fetch('1https://party-personality-nithvin-production.up.railway.app/quiz/1');
 
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
@@ -38,7 +38,7 @@ async function APIFetch() {
 //Mostly only for local development
 async function LocalFetch() {
     try {
-        const localData = await fetch(`${process.env.PUBLIC_URL}/data.json`);
+        const localData = await fetch("http://localhost:8080/quiz/1");
         if (!localData.ok) {
             throw new Error(`Local Fetch failed`);
         }
