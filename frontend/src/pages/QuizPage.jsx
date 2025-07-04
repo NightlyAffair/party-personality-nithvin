@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Data from "../data/Data";
+import DataFetch from "../components/api/DataFetch";
 import { useNavigate } from "react-router-dom";
 import DisplayBox from "../components/quiz/DisplayBox";
 import './QuizPage.css';
@@ -26,11 +26,11 @@ function QuizPage() {
     const [error, setError] = useState(null);
 
 
-    //Data loader
+    //DataFetch loader
     useEffect(() => {
         const loadData = async () => {
             try {
-                const data = await Data();
+                const data = await DataFetch();
                 console.log(data);
                 if (data) {
                     setQuestionArray(data.questions);

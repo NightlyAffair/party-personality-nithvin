@@ -1,4 +1,4 @@
-function ParseJson(data) {
+function DataParse(data) {
     // Handle array response from API
     const quizData = Array.isArray(data) ? data[0] : data;
 
@@ -53,4 +53,4 @@ function Transform(quizData) {
     return { questions, controlFlow, personalities, answers };
 }
 
-export default ParseJson;
+export default DataParse;

@@ -21,7 +21,7 @@ public class UserDetailsService implements org.springframework.security.core.use
             System.out.println("user not found");
             throw new UsernameNotFoundException(username);
         }
-
+        System.out.println(user.getPassword());
         return new UserPrincipal(user);
     }
 

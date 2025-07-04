@@ -36,7 +36,7 @@ public class SecurityConfig {
         return http
                 .csrf(csrf -> csrf.disable()) //Disables CSRF
                 .authorizeHttpRequests(requests -> requests
-                        .requestMatchers("register","login").permitAll()
+                        .requestMatchers("/register","/login").permitAll()
                         .anyRequest().authenticated())
                 //.formLogin(Customizer.withDefaults())  //Form login
                 .httpBasic(Customizer.withDefaults()) //API login

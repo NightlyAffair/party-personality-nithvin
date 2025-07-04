@@ -8,6 +8,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @RestController
 @RequiredArgsConstructor
 public class UserController {
@@ -15,16 +18,22 @@ public class UserController {
     private final UserService userService;
 
     @PutMapping("/register")
-    public ResponseEntity<User> registerUser(@RequestBody User user) {
-        userService.registerUser(user);
-        return new ResponseEntity<>(user, HttpStatus.OK);
+    public ResponseEntity<?> registerUser(@RequestBody User user) {
+        Boolean response = userService.registerUser(user);
+        if(response) {
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> loginUser(@RequestBody User user) {
+    public ResponseEntity<?> loginUser(@RequestBody User user) {
         String response = userService.verifyUser(user);
+        Map<String, String> map = new HashMap<>();
+        map.put("response", "200");
+        map.put("token", response);
         if (response != null) {
-            return new ResponseEntity<>(response, HttpStatus.OK);
+            return new ResponseEntity<>(map, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }

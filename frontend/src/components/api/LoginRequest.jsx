@@ -1,8 +1,5 @@
-function LoginRequest(username, password) {
-
-    return async (username, password) => {
-
-        const response = await fetch("http://localhost:8080/login", {
+async function LoginRequest(username, password) {
+        const response = await fetch(process.env.REACT_APP_LOGIN_API_URL, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -13,17 +10,19 @@ function LoginRequest(username, password) {
             })
         })
 
+
         if (!response.ok) {
             throw new Error(response.statusText);
         }
 
         const data = await response.json();
 
+
+
         //Save the token
         sessionStorage.setItem("token", data.token);
-        return response;
-    };
-
-
+        return {response, data};
 
 }
+
+export default LoginRequest;

@@ -3,21 +3,30 @@ import HomePage from "./pages/HomePage";
 import QuizPage from "./pages/QuizPage";
 import PersonalityPage from "./pages/PersonalityPage";
 import LoginPage from "./pages/LoginPage";
+import SignupPage from "./pages/SignupPage";
+import {AuthContextProvider, withAuth} from "./components/api/AuthContext";
 
 
 
 
 function App() {
+    const AuthenticatedHomePage = withAuth(HomePage);
+    const AuthenticatedQuizPage = withAuth(QuizPage);
+    const AuthenticatedPersonalityPage = withAuth(PersonalityPage);
+
   return (
-      <Router>
-          <Routes>
-              <Route path="/" element={<Navigate to="/login" />} />
-              <Route path="/login" element={<LoginPage />} />
-              <Route path="/homepage" element={<HomePage />} />
-              <Route path="/quiz" element={<QuizPage />} />
-              <Route path="/quiz/results" element={<PersonalityPage />} />
-          </Routes>
-      </Router>
+      <AuthContextProvider>
+          <Router>
+              <Routes>
+                  <Route path="/" element={<Navigate to="/login" />} />
+                  <Route path="/login" element={<LoginPage />} />
+                  <Route path="/signup" element={<SignupPage />} />
+                  <Route path="/homepage" element={<AuthenticatedHomePage />} />
+                  <Route path="/quiz" element={<AuthenticatedQuizPage />} />
+                  <Route path="/quiz/results" element={<AuthenticatedPersonalityPage />} />
+              </Routes>
+          </Router>
+      </AuthContextProvider>
   )
 }
 

@@ -1,11 +1,28 @@
-import {createContext, useEffect, useState} from "react";
+import {createContext, useContext, useEffect, useState} from "react";
+import {useNavigate} from "react-router-dom";
+import LoginRequest from "./LoginRequest";
+import signupRequest from "./SignupRequest";
 
 
-const authContext = createContext(false);
+const AuthContext = createContext(false);
+
+//Custom hook
+export const useAuth = () => {
+
+    const context = useContext(AuthContext);
+
+    if (!context) {
+        console.error("No auth context");
+    }
+
+    return context;
+}
 
 //Checks if token is valid
-const isTokenValid = (token) => {
+const isTokenValid = () => {
     try {
+        const token = sessionStorage.getItem("token");
+        if(!token) return false;
         // Split JWT into parts
         const parts = token.split('.');
         if (parts.length !== 3) return false;
@@ -26,16 +43,59 @@ const isTokenValid = (token) => {
 export const AuthContextProvider = ({ children }) => {
 
     const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [user, setUser] = useState(null);
 
     useEffect(() => {
         setIsAuthenticated(isTokenValid(sessionStorage.getItem("token")))
-    })
+    },[])
+
+    const login = async (username, password) => {
+        try {
+            const {response, data} = await LoginRequest(username, password);
+            setUser(data);
+            setIsAuthenticated(isTokenValid());
+
+            return response;
+        } catch (error){
+            throw new Error("Wrong username and password");
+        }
+    }
+
+    const signUp = async (username, email, password) => {
+        return await signupRequest(username, email, password);
+
+    }
+
+    const value = {
+        isAuthenticated,
+        user,
+        login,
+        signUp
+    }
 
     return (
-        <AuthContextProvider value={isAuthenticated}>
+        <AuthContext.Provider value={value}>
             {children}
-        </AuthContextProvider>
+        </AuthContext.Provider>
     )
 }
+
+export const withAuth = (Component) => {
+    return function AuthenticatedComponent(props) {
+        const navigate = useNavigate();
+
+        const context = useContext(AuthContext);
+
+        if (!context.isAuthenticated) {
+            navigate("/login");
+        }
+
+        return <Component {...props} />;
+    }
+}
+
+export default AuthContext;
+
+
 
 
