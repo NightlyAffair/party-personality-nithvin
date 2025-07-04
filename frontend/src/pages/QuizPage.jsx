@@ -3,7 +3,7 @@ import DataFetch from "../components/api/DataFetch";
 import { useNavigate } from "react-router-dom";
 import DisplayBox from "../components/quiz/DisplayBox";
 import './QuizPage.css';
-import Header from "../components/quiz/Header";
+import QuizHeader from "../components/quiz/QuizHeader";
 
 //QuizPage will handle the logic for the DisplayBox
 function QuizPage() {
@@ -148,7 +148,7 @@ function QuizPage() {
     return (
         <div className="QuizContainer">
             <div className="Header">
-                <Header quizName={"Party Personality"} rollback={rollback} />
+                <QuizHeader quizName={"Party Personality"} rollback={rollback} />
             </div>
             <div className="Quiz">
                 {CurrentComponent}
