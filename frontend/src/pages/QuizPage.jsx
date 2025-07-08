@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import Data from "../data/Data";
+import DataFetch from "../components/api/DataFetch";
 import { useNavigate } from "react-router-dom";
-import DisplayBox from "../components/DisplayBox";
+import DisplayBox from "../components/quiz/DisplayBox";
 import './QuizPage.css';
-import Header from "../components/Header";
+import QuizHeader from "../components/quiz/QuizHeader";
 
 //QuizPage will handle the logic for the DisplayBox
 function QuizPage() {
@@ -26,17 +26,18 @@ function QuizPage() {
     const [error, setError] = useState(null);
 
 
-    //Data loader
+    //DataFetch loader
     useEffect(() => {
         const loadData = async () => {
             try {
-                const data = await Data();
+                const data = await DataFetch();
                 console.log(data);
                 if (data) {
                     setQuestionArray(data.questions);
                     setControlFlow(data.controlFlow);
                     setPersonalities(data.personalities);
                     setAnsData(data.answers)
+                    setError(null)
                 } else {
                     setError("Failed to load questions");
                 }
@@ -146,11 +147,11 @@ function QuizPage() {
     }
 
     return (
-        <div className="QuizContainer">
-            <div className="Header">
-                <Header quizName={"Party Personality"} rollback={rollback} />
+        <div className="quiz-container">
+            <div className="quiz-header">
+                <QuizHeader quizName={"Party Personality"} rollback={rollback} />
             </div>
-            <div className="Quiz">
+            <div className="quiz">
                 {CurrentComponent}
             </div>
         </div>

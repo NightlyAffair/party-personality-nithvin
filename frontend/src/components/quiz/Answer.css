@@ -1,11 +1,11 @@
-.AnswerBox {
+.answer-box {
     display: flex;
     flex-direction: column;
     margin-left: 10px;
     width: 50vw;
 }
 
-.Answer {
+.answer {
     width: 100%;
     margin: 5px;
     border: 1px solid lightgray;

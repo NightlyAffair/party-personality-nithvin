@@ -1,11 +1,11 @@
-.Header {
+.quiz-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     width:80vw;
 }
 
-.QuizName {
+.quiz-name {
     font-family: monospace;
     font-size: 15pt;
 }

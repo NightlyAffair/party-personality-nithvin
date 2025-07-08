@@ -1,0 +1,41 @@
+.landing-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    background-color: lightblue;
+    height: 50px;
+    font-family: monospace;
+}
+
+.sections {
+    display: flex;
+    height:100%;
+    justify-content: space-between;
+    width: 20%;
+}
+
+.auth {
+    display: flex;
+    height: 100%;
+}
+
+.section-button {
+    border: none;
+    transition-duration: 0.4s;
+    width:100px;
+}
+
+.section-button:hover {
+    background-color: white;
+}
+
+.auth-button {
+    border: none;
+    transition-duration: 0.4s;
+}
+
+.auth-button:hover {
+     background-color: white;
+ }

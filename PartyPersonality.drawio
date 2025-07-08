@@ -13,10 +13,10 @@
         <mxCell id="eszTr-KIWTw2_iBcQSRl-42" value="QuizPage" style="html=1;whiteSpace=wrap;" parent="1" vertex="1">
           <mxGeometry x="110" y="190" width="110" height="50" as="geometry" />
         </mxCell>
-        <mxCell id="eszTr-KIWTw2_iBcQSRl-44" value="Data" style="html=1;whiteSpace=wrap;" parent="1" vertex="1">
+        <mxCell id="eszTr-KIWTw2_iBcQSRl-44" value="DataFetch" style="html=1;whiteSpace=wrap;" parent="1" vertex="1">
           <mxGeometry x="300" y="190" width="110" height="50" as="geometry" />
         </mxCell>
-        <mxCell id="eszTr-KIWTw2_iBcQSRl-46" value="ParseJson" style="whiteSpace=wrap;html=1;" parent="1" vertex="1">
+        <mxCell id="eszTr-KIWTw2_iBcQSRl-46" value="DataParse" style="whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="295" y="300" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="eszTr-KIWTw2_iBcQSRl-48" value="" style="endArrow=classic;startArrow=classic;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="eszTr-KIWTw2_iBcQSRl-42" target="eszTr-KIWTw2_iBcQSRl-44" edge="1">

@@ -19,6 +19,7 @@ public class User {
 
     @Setter
     @Getter
+    @Column(unique = true, nullable = false)
     String username;
 
     @Setter
@@ -27,6 +28,7 @@ public class User {
 
     @Setter
     @Getter
+    @Column(unique = true, nullable = false)
     String email;
 
     @Setter

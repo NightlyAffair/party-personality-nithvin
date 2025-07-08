@@ -1,15 +1,15 @@
-// src/data/Data.js
-import ParseJson from './ParseJson';
+// src/data/DataFetch.js
+import DataParse from './DataParse';
 
-async function Data() {
+async function DataFetch() {
     try {
         // Try API first
         const apiData = await APIFetch();
         if (apiData && !apiData.error) {
-            return ParseJson(apiData);
+            return DataParse(apiData);
         } else {
             //Try local fetch
-            return ParseJson(await LocalFetch());
+            return DataParse(await LocalFetch());
         }
     } catch (error) {
         console.error('Error fetching data:', error);
@@ -21,7 +21,7 @@ async function Data() {
 async function APIFetch() {
     try {
         //URL
-        const response = await fetch('https://party-personality-nithvin-production.up.railway.app/quiz/1');
+        const response = await fetch(process.env.REACT_APP_STANDARD_QUIZ_URL);
 
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
@@ -37,8 +37,16 @@ async function APIFetch() {
 
 //Mostly only for local development
 async function LocalFetch() {
+    const token = sessionStorage.getItem('token');
     try {
-        const localData = await fetch(`${process.env.PUBLIC_URL}/data.json`);
+        const localData = await fetch(process.env.REACT_APP_LOCAL_STANDARD_QUIZ_URL,
+            {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            });
         if (!localData.ok) {
             throw new Error(`Local Fetch failed`);
         }
@@ -49,4 +57,4 @@ async function LocalFetch() {
     }
 }
 
-export default Data;
+export default DataFetch;
