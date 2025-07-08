@@ -9,6 +9,7 @@ import com.party_personality.party_personality.service.QuizService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,6 +23,7 @@ public class QuizController {
 
     //Read all quizzes created by userid
     @GetMapping("/quiz/{userid}")
+    @PreAuthorize("hasRole('USER')")
     public ResponseEntity<List<QuizDTO>> getQuiz(@PathVariable Long userid) {
         List<Quiz> quizzes = quizService.getQuiz(userid);
         List<QuizDTO> quizDTOs = quizMapper.toDTO(quizzes);

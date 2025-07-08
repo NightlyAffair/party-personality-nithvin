@@ -12,17 +12,13 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-@Configuration //Config class
-@EnableWebSecurity //Custom implementation
+@Configuration
+@EnableWebSecurity
 public class SecurityConfig {
 
     @Autowired
@@ -31,15 +27,15 @@ public class SecurityConfig {
     @Autowired
     private JwtFilter jwtFilter;
 
-    @Bean //This returns a bean
+    @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
-                .csrf(csrf -> csrf.disable()) //Disables CSRF
+                .cors(Customizer.withDefaults()) // ADD THIS - enables CORS
+                .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(requests -> requests
-                        .requestMatchers("/register","/login").permitAll()
+                        .requestMatchers("/register", "/login").permitAll()
                         .anyRequest().authenticated())
-                //.formLogin(Customizer.withDefaults())  //Form login
-                .httpBasic(Customizer.withDefaults()) //API login
+                // .httpBasic(Customizer.withDefaults()) // REMOVE THIS - causes login popup
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
@@ -57,19 +53,5 @@ public class SecurityConfig {
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
-
     }
-
-//    @Bean
-//    public UserDetailsService userDetailsService() {
-//        UserDetails user1 = User
-//                .withDefaultPasswordEncoder()
-//                .username("cheryl")
-//                .password("cheryl123")
-//                .roles("USER")
-//                .build();
-//
-//        return new InMemoryUserDetailsManager(user1);
-//    }
-
 }

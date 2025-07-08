@@ -37,6 +37,7 @@ function QuizPage() {
                     setControlFlow(data.controlFlow);
                     setPersonalities(data.personalities);
                     setAnsData(data.answers)
+                    setError(null)
                 } else {
                     setError("Failed to load questions");
                 }
@@ -146,11 +147,11 @@ function QuizPage() {
     }
 
     return (
-        <div className="QuizContainer">
-            <div className="Header">
+        <div className="quiz-container">
+            <div className="quiz-header">
                 <QuizHeader quizName={"Party Personality"} rollback={rollback} />
             </div>
-            <div className="Quiz">
+            <div className="quiz">
                 {CurrentComponent}
             </div>
         </div>

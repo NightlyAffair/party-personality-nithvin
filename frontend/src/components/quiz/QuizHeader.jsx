@@ -4,11 +4,11 @@ import './QuizHeader.css'
 function QuizHeader({quizName, rollback}) {
     //Contains a back button and the name of the quiz
     return (
-        <div className="Header">
+        <div className="quiz-header">
             <button className="BackButton" onClick={() => rollback()}>
                 <img src={backButton} alt="Back Button" />
             </button>
-            <div className="QuizName">
+            <div className="quiz-name">
                 {quizName}
             </div>
             <div>

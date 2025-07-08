@@ -31,8 +31,8 @@ function LoginPage() {
     }
 
     return (
-        <div className="LoginPage">
-            <div className = "LoginContainer">
+        <div className="login-page">
+            <div className = "login-container">
                 <h1>Sign in</h1>
                 <form onSubmit= {(e) =>
                 {

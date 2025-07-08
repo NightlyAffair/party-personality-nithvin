@@ -23,12 +23,12 @@ function DisplayBox({ question, onSubmit, history, setHistory }) {
 
 
     return (
-        <div className="DisplayBox">
+        <div className="display-box">
             <div className="history">
                 {History}
             </div>
             {DisplayQuestion}
-            <div className="Answers">
+            <div className="answers">
                 {Answers}
             </div>
         </div>

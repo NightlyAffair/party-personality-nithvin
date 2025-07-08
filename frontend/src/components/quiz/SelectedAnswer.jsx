@@ -2,8 +2,8 @@ import'./Answer.css'
 
 function SelectedAnswer({answer}) {
 
-    return (<div className="AnswerBox">
-        <div className="Answer">
+    return (<div className="answer-box">
+        <div className="answer">
             {answer}
         </div>
     </div>);

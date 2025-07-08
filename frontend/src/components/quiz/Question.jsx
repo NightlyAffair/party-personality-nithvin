@@ -5,7 +5,7 @@ function Question( {questionText} ) { // Fixed prop name casing
     // JSX return moved outside HandleSubmit function
     //Describes the component Question
     return (
-        <div className="Question">
+        <div className="question">
             <p>{questionText}</p>
         </div>
     );

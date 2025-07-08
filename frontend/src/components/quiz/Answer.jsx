@@ -7,7 +7,7 @@ function Answer({answers, onSubmit, saveSubmit}) {
 
     function CreateAnswer({index, answer}) {
         return (
-            <div className="Answer" onClick={() => {
+            <div className="answer" onClick={() => {
                 onSubmit(index, answer)
                 saveSubmit(answer)
             }}>
@@ -17,7 +17,7 @@ function Answer({answers, onSubmit, saveSubmit}) {
     }
 
 
-    return (<div className="AnswerBox">
+    return (<div className="answer-box">
                 {answers.map((object, key) =>
                     <CreateAnswer index={Object.keys(object)[0]} answer={Object.values(object)[0]}/>)}
             </div>);

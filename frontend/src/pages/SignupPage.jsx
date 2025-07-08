@@ -22,7 +22,7 @@ function SignupPage() {
     }
 
     return (
-        <div className="SignupPage">
+        <div className="signup-page">
             <h1>Create a new account</h1>
             <form onSubmit={handleSubmit}>
                 <p>Username</p>

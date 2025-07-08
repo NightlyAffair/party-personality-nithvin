@@ -37,8 +37,16 @@ async function APIFetch() {
 
 //Mostly only for local development
 async function LocalFetch() {
+    const token = sessionStorage.getItem('token');
     try {
-        const localData = await fetch(process.env.REACT_APP_LOCAL_STANDARD_QUIZ_URL);
+        const localData = await fetch(process.env.REACT_APP_LOCAL_STANDARD_QUIZ_URL,
+            {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            });
         if (!localData.ok) {
             throw new Error(`Local Fetch failed`);
         }

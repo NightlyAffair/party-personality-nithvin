@@ -4,6 +4,8 @@ import QuizPage from "./pages/QuizPage";
 import PersonalityPage from "./pages/PersonalityPage";
 import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
+import LandingPage from "./pages/LandingPage";
+
 import {AuthContextProvider, withAuth} from "./components/api/AuthContext";
 
 
@@ -18,7 +20,8 @@ function App() {
       <AuthContextProvider>
           <Router>
               <Routes>
-                  <Route path="/" element={<Navigate to="/login" />} />
+                  <Route path="/" element={<Navigate to="/landing" />} />
+                  <Route path="/landing" element={<LandingPage />} />
                   <Route path="/login" element={<LoginPage />} />
                   <Route path="/signup" element={<SignupPage />} />
                   <Route path="/homepage" element={<AuthenticatedHomePage />} />
