@@ -1,7 +1,7 @@
 import {createContext, useContext, useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
-import LoginRequest from "./LoginRequest";
-import signupRequest from "./SignupRequest";
+import LoginRequest from "../api/LoginRequest";
+import signupRequest from "../api/SignupRequest";
 
 
 const AuthContext = createContext(false);
@@ -44,6 +44,7 @@ export const AuthContextProvider = ({ children }) => {
 
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [user, setUser] = useState(null);
+    const [username, setUsername] = useState(null);
 
     useEffect(() => {
         setIsAuthenticated(isTokenValid(sessionStorage.getItem("token")))
@@ -52,9 +53,10 @@ export const AuthContextProvider = ({ children }) => {
     const login = async (username, password) => {
         try {
             const {response, data} = await LoginRequest(username, password);
-            setUser(data);
+            console.log(data);
+            setUser(data.userid);
             setIsAuthenticated(isTokenValid());
-
+            setUsername(username);
             return response;
         } catch (error){
             throw new Error("Wrong username and password");
@@ -62,16 +64,18 @@ export const AuthContextProvider = ({ children }) => {
     }
 
     const signUp = async (username, email, password) => {
-        return await signupRequest(username, email, password);
-
+        const response = await signupRequest(username, email, password);
     }
 
     const value = {
         isAuthenticated,
         user,
+        username,
         login,
         signUp
     }
+
+    console.log(user)
 
     return (
         <AuthContext.Provider value={value}>
@@ -95,7 +99,3 @@ export const withAuth = (Component) => {
 }
 
 export default AuthContext;
-
-
-
-

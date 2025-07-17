@@ -3,7 +3,7 @@
     padding: 0;
 }
 
-.HomePageContainer {
+.intro-container {
     background: pink;
     display: flex;
     flex-direction: column;

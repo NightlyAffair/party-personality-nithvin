@@ -1,12 +1,13 @@
-import { useEffect, useState } from "react";
+import {useContext, useEffect, useState} from "react";
 import DataFetch from "../components/api/DataFetch";
 import { useNavigate } from "react-router-dom";
-import DisplayBox from "../components/quiz/DisplayBox";
-import './QuizPage.css';
-import QuizHeader from "../components/quiz/QuizHeader";
+import DisplayBox from "../components/form/DisplayBox";
+import './FormPage.css';
+import FormHeader from "../components/form/FormHeader";
+import DataContext from "../components/context/DataContext";
 
-//QuizPage will handle the logic for the DisplayBox
-function QuizPage() {
+//FormPage will handle the logic for the DisplayBox
+function FormPage() {
     const navigate = useNavigate();
 
     //Arrays for holding the data
@@ -25,6 +26,7 @@ function QuizPage() {
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
 
+    const dataContext = useContext(DataContext);
 
     //DataFetch loader
     useEffect(() => {
@@ -149,7 +151,7 @@ function QuizPage() {
     return (
         <div className="quiz-container">
             <div className="quiz-header">
-                <QuizHeader quizName={"Party Personality"} rollback={rollback} />
+                <FormHeader quizName={"Party Personality"} rollback={rollback} />
             </div>
             <div className="quiz">
                 {CurrentComponent}
@@ -158,4 +160,4 @@ function QuizPage() {
     );
 }
 
-export default QuizPage;
+export default FormPage;

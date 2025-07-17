@@ -1,20 +1,23 @@
 function DataParse(data) {
+    console.log(data);
     // Handle array response from API
-    const quizData = Array.isArray(data) ? data[0] : data;
+    if (!Array.isArray(data)) {
+        throw new Error('Expected array of quiz data');
+    }
+    // Handle array response from API
+    return data.map((item) => {return Transform(item)})
 
-    console.log(quizData);
 
+}
+
+function Transform(quizData) {
     // Validate the JSON structure
     if (!quizData.questions || !quizData.controlFlow || !quizData.personalities || !quizData.answers) {
         throw new Error('Invalid quiz format: missing required fields');
     }
 
-    console.log(`Loaded ${quizData.questions.length} questions`);
+    const id = quizData.id;
 
-    return Transform(quizData);
-}
-
-function Transform(quizData) {
     // Transform questions to match expected format
     const questions = quizData.questions.map(q => ({
         id: q.id,
@@ -50,7 +53,7 @@ function Transform(quizData) {
         };
     return acc;
     }, {});
-    return { questions, controlFlow, personalities, answers };
+    return { id, questions, controlFlow, personalities, answers };
 }
 
 export default DataParse;

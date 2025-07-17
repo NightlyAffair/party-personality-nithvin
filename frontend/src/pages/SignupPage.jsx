@@ -1,5 +1,5 @@
 import {useContext, useState} from "react";
-import AuthContext from "../components/api/AuthContext";
+import AuthContext from "../components/context/AuthContext";
 import {useNavigate} from "react-router-dom";
 
 function SignupPage() {

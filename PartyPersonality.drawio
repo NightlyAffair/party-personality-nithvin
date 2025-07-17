@@ -10,7 +10,7 @@
         <mxCell id="eszTr-KIWTw2_iBcQSRl-41" value="HomePage" style="html=1;whiteSpace=wrap;" parent="1" vertex="1">
           <mxGeometry x="110" y="60" width="110" height="50" as="geometry" />
         </mxCell>
-        <mxCell id="eszTr-KIWTw2_iBcQSRl-42" value="QuizPage" style="html=1;whiteSpace=wrap;" parent="1" vertex="1">
+        <mxCell id="eszTr-KIWTw2_iBcQSRl-42" value="FormPage" style="html=1;whiteSpace=wrap;" parent="1" vertex="1">
           <mxGeometry x="110" y="190" width="110" height="50" as="geometry" />
         </mxCell>
         <mxCell id="eszTr-KIWTw2_iBcQSRl-44" value="DataFetch" style="html=1;whiteSpace=wrap;" parent="1" vertex="1">

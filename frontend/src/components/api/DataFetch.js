@@ -1,7 +1,7 @@
 // src/data/DataFetch.js
 import DataParse from './DataParse';
 
-async function DataFetch() {
+async function DataFetch(userid) {
     try {
         // Try API first
         const apiData = await APIFetch();
@@ -9,7 +9,7 @@ async function DataFetch() {
             return DataParse(apiData);
         } else {
             //Try local fetch
-            return DataParse(await LocalFetch());
+            return DataParse(await LocalFetch(userid));
         }
     } catch (error) {
         console.error('Error fetching data:', error);
@@ -36,10 +36,13 @@ async function APIFetch() {
 }
 
 //Mostly only for local development
-async function LocalFetch() {
+async function LocalFetch(userid) {
     const token = sessionStorage.getItem('token');
+    console.log(userid);
+    const path = `${process.env.REACT_APP_LOCAL_STANDARD_QUIZ_URL}/${userid}`;
+
     try {
-        const localData = await fetch(process.env.REACT_APP_LOCAL_STANDARD_QUIZ_URL,
+        const localData = await fetch(path,
             {
                 method: 'GET',
                 headers: {

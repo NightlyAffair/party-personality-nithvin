@@ -1,9 +1,9 @@
 import {Link} from 'react-router-dom';
-import './HomePage.css';
+import './IntroPage.css';
 
-function HomePage() {
+function IntroPage() {
     return (
-        <div className="HomePageContainer">
+        <div className="intro-container">
             <h1>
                 Welcome to Party Personality!
             </h1>
@@ -21,4 +21,4 @@ function HomePage() {
     )
 }
 
-export default HomePage;
+export default IntroPage;

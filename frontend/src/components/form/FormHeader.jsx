@@ -1,7 +1,7 @@
 import backButton from '../../assets/icons/back_button.png';
-import './QuizHeader.css'
+import './FormHeader.css'
 
-function QuizHeader({quizName, rollback}) {
+function FormHeader({quizName, rollback}) {
     //Contains a back button and the name of the quiz
     return (
         <div className="quiz-header">
@@ -17,4 +17,4 @@ function QuizHeader({quizName, rollback}) {
     )
 }
 
-export default QuizHeader;
+export default FormHeader;
